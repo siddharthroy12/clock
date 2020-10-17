@@ -14,9 +14,9 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            breakLength: 5,
-            sessionLength: 25,
-            breakTime:300000,
+            breakLength: "5",
+            sessionLength: "25",
+            breakTime:"300000",
             sessionTime:1500000,
             timerPlaying: false,
             currentTimer: "session",
@@ -33,7 +33,7 @@ class App extends React.Component {
     
     msToTime(s) {
 
-        if (s === 3600000) {
+        if (s === "3600000") {
             return "60:00";
         }
 
@@ -61,6 +61,7 @@ class App extends React.Component {
     sessionTimerFunction() {
         console.log("session tik");
         if(this.state.sessionTime < 1000) {
+            this.audioBeep.play();
             console.log(this.sessionTimer);
             const id = this.sessionTimer;
             clearInterval(id);
@@ -168,6 +169,8 @@ class App extends React.Component {
                     timerPlaying: false,
                     currentTimer: "session",
                 });
+                this.audioBeep.pause();
+                this.audioBeep.currentTime = 0;
                 break;
             default:
                 break;
@@ -211,6 +214,14 @@ class App extends React.Component {
                             <RotateLeftIcon></RotateLeftIcon>
                         </IconButton>
                     </div>
+                    <audio
+                        id="beep"
+                        preload="auto"
+                        ref={(audio) => {
+                            this.audioBeep = audio;
+                        }}
+                        src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+                    />
                     <Typography id="credit" align="center">
                         Design and Codded by Siddharth Roy
                     </Typography>
