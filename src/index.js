@@ -14,8 +14,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            breakLength: "5",
-            sessionLength: "25",
+            breakLength: 5,
+            sessionLength: 25,
             breakTime:"300000",
             sessionTime:1500000,
             timerPlaying: false,
