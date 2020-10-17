@@ -59,10 +59,8 @@ class App extends React.Component {
     }
 
     sessionTimerFunction() {
-        console.log("session tik");
         if(this.state.sessionTime < 1000) {
             this.audioBeep.play();
-            console.log(this.sessionTimer);
             const id = this.sessionTimer;
             clearInterval(id);
             this.setState((state) => ({
@@ -70,7 +68,6 @@ class App extends React.Component {
                 currentTimer: "break",
             }));
             this.breakTimer = setInterval(this.breakTimerFunction, 1000);
-            console.log("s bye");
         } else {
             this.setState((state) => ({
                 sessionTime: state.sessionTime - 1000,
@@ -79,7 +76,6 @@ class App extends React.Component {
     }
 
     breakTimerFunction() {
-        console.log("break tik");
         if (this.state.breakTime < 1000) {
             const id = this.breakTimer;
             clearInterval(id);
@@ -87,8 +83,7 @@ class App extends React.Component {
                 sessionTime: state.sessionLength * 60 + "000",
                 currentTimer: "session",
             }));
-            this.sessionTimer = setInterval(this.sessionTimerFunction, 1000);
-            console.log("b bye");   
+            this.sessionTimer = setInterval(this.sessionTimerFunction, 1000); 
         } else {
             this.setState((state) => ({
                 breakTime: state.breakTime - 1000,
@@ -153,7 +148,6 @@ class App extends React.Component {
                     }
                     this.setState({timerPlaying:false});
                 }
-                console.log(this.sessionTimer);
                 break;
             case "reset":
                 if (this.state.currentTimer === "break") {
@@ -175,8 +169,6 @@ class App extends React.Component {
             default:
                 break;
         }
-        console.log(button);
-
     }
     
     handleTimerControl(event) {
@@ -191,7 +183,6 @@ class App extends React.Component {
             display = this.msToTime(this.state.breakTime);
         }
 
-        console.log(this.state);
         return (
             <div id="container">
                 <div id="app">
