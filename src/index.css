@@ -5,6 +5,8 @@
 
 body {
     background-color: #1E1B1C;
+    padding:0;
+    margin: 0;
 }
 
 #container {
@@ -57,4 +59,16 @@ body {
 #credit {
     margin-top: 10px;
     font-family: monospace;
+}
+
+@media (max-width:400px) {
+    #app {
+        width: 100%;
+    }
+    #controlContainer {
+        justify-content: space-around;
+    }
+    #sessionContainer {
+        width: auto;
+    }
 }
