@@ -32,6 +32,11 @@ class App extends React.Component {
     }
     
     msToTime(s) {
+
+        if (s === 3600000) {
+            return "60:00";
+        }
+
         let ms = s % 1000;
         s = (s - ms) / 1000;
         let secs = s % 60;
@@ -41,10 +46,14 @@ class App extends React.Component {
         let result = mins + ':' + secs;
         
         let x = result.indexOf(":");
-        if(result.slice(x).length === 2) {
+        if (result.slice(x).length === 2) {
             let y = result.slice(0,x);
             y += ":0" + result[result.length-1];
-           return  y;
+           result = y;
+        }
+        if (result.slice(0,x).length === 1) {
+            let y = "0" + result;
+            result = y;
         }
         return result;
     }
@@ -88,16 +97,16 @@ class App extends React.Component {
 
     handleControl(button) {
         switch (button) {
-            case "bc-up":
+            case "break-increment":
                 if (!this.state.timerPlaying) {
                     this.setState((state) => ({
-                        breakLength: state.breakLength + 1,
-                        breakTime: (state.breakLength + 1) * 60 + "000",
+                        breakLength: state.breakLength === 60 ? state.breakLength : state.breakLength + 1,
+                        breakTime: state.breakTime === "3600000" ? state.breakTime : (state.breakLength + 1) * 60 + "000",
                         currentTimer: "session"
                     }));
                 }
                 break;
-            case "bc-down":
+            case "break-decrement":
                 if (!this.state.timerPlaying) {
                     this.setState((state) => ({
                         breakLength: state.breakLength === 1 ? state.breakLength : state.breakLength - 1,
@@ -106,16 +115,16 @@ class App extends React.Component {
                     }));
                 }
                 break;
-            case "sc-up":
+            case "session-increment":
                 if (!this.state.timerPlaying) {
                     this.setState((state) => ({
-                        sessionLength: state.sessionLength + 1,
-                        sessionTime: (state.sessionLength + 1) * 60 + "000",
+                        sessionLength: state.sessionLength === 60 ? state.sessionLength : state.sessionLength + 1,
+                        sessionTime: state.sessionTime === "3600000" ? state.sessionTime : (state.sessionLength + 1) * 60 + "000",
                         currentTimer: "session"
                     }));
                 }
                 break;
-            case "sc-down":
+            case "session-decrement":
                 if (!this.state.timerPlaying) {
                     this.setState((state) => ({
                         sessionLength: state.sessionLength === 1 ? state.sessionLength : state.sessionLength - 1,
@@ -124,7 +133,7 @@ class App extends React.Component {
                     }));
                 }
                 break;
-            case "play":
+            case "start_stop":
                 if (!this.state.timerPlaying) {
                     if (this.state.currentTimer === "break") {
                         this.breakTimer = setInterval(this.breakTimerFunction, 1000);
@@ -144,14 +153,6 @@ class App extends React.Component {
                     this.setState({timerPlaying:false});
                 }
                 console.log(this.sessionTimer);
-                break;
-            case "pause":
-                if (this.state.currentTimer === "break") {
-                    clearInterval(this.breakTimer);
-                } else if (this.state.currentTimer === "session") {
-                    clearInterval(this.sessionTimer);
-                }
-                this.setState({timerPlaying:false});
                 break;
             case "reset":
                 if (this.state.currentTimer === "break") {
@@ -199,11 +200,11 @@ class App extends React.Component {
                         </LengthControl>
                     </div>
                     <Paper id="sessionContainer">
-                        <Typography variant="h4" align="center" style={{marginBottom:"20px"}}>{this.state.currentTimer[0].toUpperCase() + this.state.currentTimer.slice(1)}</Typography>
-                        <Typography variant="h2" align="center">{display}</Typography>
+                        <Typography variant="h4" align="center" style={{marginBottom:"20px"}} id="timer-label">{this.state.currentTimer[0].toUpperCase() + this.state.currentTimer.slice(1)}</Typography>
+                        <Typography variant="h2" align="center" id="time-left">{display}</Typography>
                     </Paper>
                     <div id="timerControl">
-                        <IconButton id="play" onClick={this.handleTimerControl}>
+                        <IconButton id="start_stop" onClick={this.handleTimerControl}>
                             {this.state.timerPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                         </IconButton>
                         <IconButton id="reset" onClick={this.handleTimerControl}>
@@ -225,19 +226,20 @@ function LengthControl(props) {
         props.handleControl(event.currentTarget.id);
     }
 
-    //let labelId = (props.id === "bc") ? "break-label" : "";
-    //let buttonUpId;
-    //let buttonDownId;
+    let labelId = (props.id === "bc") ? "break-label" : "session-label";
+    let buttonUpId = (props.id === "bc") ? "break-increment" : "session-increment";
+    let buttonDownId = (props.id === "bc") ? "break-decrement" : "session-decrement";
+    let valueId =  (props.id === "bc") ? "break-length" : "session-length";
 
     return (
-        <div className="lengthControl">
-            <Typography className="label">{props.label}</Typography>
+        <div className="lengthControl" id={labelId}>
+            <Typography className="label" >{props.label}</Typography>
             <div className="control">
-            <IconButton onClick={handleClick} id={props.id+"-up"}>
+            <IconButton onClick={handleClick} id={buttonUpId}>
                 <ExpandLessIcon />
             </IconButton>
-    <p className="value">{props.value}</p>
-            <IconButton onClick={handleClick} id={props.id+"-down"}>
+    <p className="value" id={valueId}>{props.value}</p>
+            <IconButton onClick={handleClick} id={buttonDownId}>
                 <ExpandMoreIcon></ExpandMoreIcon>
             </IconButton>
             </div>
