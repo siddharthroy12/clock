@@ -186,7 +186,7 @@ class App extends React.Component {
         return (
             <div id="container">
                 <div id="app">
-                    <Typography align="center" variant="h2" id="title" >25 + 5 Clock</Typography>
+                    <h1 id="title">25 + 5 Clock</h1>
                     <div id="controlContainer">
                         <LengthControl label="Break Length" value={this.state.breakLength} id="bc" handleControl={this.handleControl}>
                         </LengthControl>

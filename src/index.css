@@ -18,6 +18,9 @@ body {
 
 #title {
     margin-bottom: 50px;
+    text-align:center;
+    font-weight: 400;
+    font-size: 3.3rem;
 }
 
 #controlContainer {
@@ -62,6 +65,11 @@ body {
 }
 
 @media (max-width:400px) {
+    #container {
+        display: block;
+        margin-top: 50px;
+    }
+
     #app {
         width: 100%;
     }
@@ -70,5 +78,8 @@ body {
     }
     #sessionContainer {
         width: auto;
+    }
+    #title {
+        font-size: 3rem;
     }
 }
