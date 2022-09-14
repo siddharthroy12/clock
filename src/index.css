@@ -1,85 +1,85 @@
 * {
-    font-family: 'Roboto', sans-serif;
-    color:white;
+  font-family: 'Roboto', sans-serif;
+  color:white;
 }
 
 body {
-    background-color: #1E1B1C;
-    padding:0;
-    margin: 0;
+  background-color: #1E1B1C;
+  padding:0;
+  margin: 0;
 }
 
 #container {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #title {
-    margin-bottom: 50px;
-    text-align:center;
-    font-weight: 400;
-    font-size: 3.3rem;
+  margin-bottom: 50px;
+  text-align:center;
+  font-weight: 400;
+  font-size: 3.3rem;
 }
 
 #controlContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 #sessionContainer {
-    padding: 30px;
-    background-color: #110F10;
-    width: 300px;
+  padding: 30px;
+  background-color: #110F10;
+  width: 300px;
 }
 
 #sessionLabel {
-    font-size: large;
+  font-size: large;
 }
 
 .control {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .label {
-    text-align: center;
+  text-align: center;
 }
 
 .value {
-    margin-top: auto;
-    margin-bottom: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 #timerControl {
-    display: flex;
-    justify-content: center;
-    margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 #credit {
-    margin-top: 10px;
-    font-family: monospace;
+  margin-top: 10px;
+  font-family: monospace;
 }
 
 @media (max-width:400px) {
-    #container {
-        display: block;
-        margin-top: 50px;
-    }
+  #container {
+    display: block;
+    margin-top: 50px;
+  }
 
-    #app {
-        width: 100%;
-    }
-    #controlContainer {
-        justify-content: space-around;
-    }
-    #sessionContainer {
-        width: auto;
-    }
-    #title {
-        font-size: 3rem;
-    }
+  #app {
+    width: 100%;
+  }
+  #controlContainer {
+    justify-content: space-around;
+  }
+  #sessionContainer {
+    width: auto;
+  }
+  #title {
+    font-size: 3rem;
+  }
 }
